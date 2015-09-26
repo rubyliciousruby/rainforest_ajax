@@ -1,0 +1,12 @@
+//escape_javascript takes care of ensuring there are no issues with formatting by the time it gets executed as JS.
+// $('#products').html("<%= escape_javascript(render @products) %>");
+
+// "j " is equavilent to "escape_j"
+// $('#products').html("<%= escape_j(render @products) %>");
+<% if params[:search] && params[:page].nil? %>
+  $('#products').html("<%= j(render @products) %>");
+<% else %>
+  $('#products').append('<%= j render(@products) %>');
+<% end %>
+
+$('.pagination').replaceWith('<%= j paginate(@products) %>');

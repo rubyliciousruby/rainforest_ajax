@@ -1,0 +1,55 @@
+
+<h1>Listing products</h1>
+
+<%= link_to 'New Product', new_product_path %>
+<!-- renders a helpful message with numbers of displayed vs. total entries -->
+<h1><small><%= page_entries_info @products %></small></h1>
+    <!-- Search form -->
+      <%= form_tag products_path, method: :get, authentication: false, id: 'search-form' do %>
+          <%= text_field_tag :search, params[:search] %>
+          <%= submit_tag "Search" %>
+       <% end %>
+
+        <div id="products">
+          <%= render @products %>
+        </div>
+<!-- outputs several pagination links such as « First ‹ Prev ... 2 3 4 5 6 7 8 9 10 ... Next › Last » -->
+<%= paginate @products %>
+
+    <!-- End of Search form -->
+<!---Not sure if the below code is related to assignment-->
+<!-- <div id="products">
+  <% @products.each do |product| %>
+    <%= link_to product_path(product.id) do %>
+      <h2>
+        <%= number_to_currency(product.formatted_price) %>
+        <%= product.name %>
+      </h2>
+
+    <% end %>
+    <!-- keeps the description to 100 characters or less 
+    <p><%= truncate(product.description, length: 100) %></p>
+  <% end %>
+</div> -->
+<!-- 
+<script type="text/javascript">
+  function display_search_results() {
+    // readyState === 4 means that the asynchronous request completed successfully
+    if (this.readyState === 4) {
+      console.log(this);
+      document.getElementById('products').innerHTML = this.responseText;
+    }
+  }
+
+  var form = document.getElementById('search-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var searchValue = document.getElementById('search').value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.onload = display_search_results;
+    xhr.open('GET', '/products?search=' + searchValue, true);
+    xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+    xhr.send();
+  });
+</script> -->
